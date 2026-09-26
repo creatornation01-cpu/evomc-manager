@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: evomc-manager
+    runtime: node
+    plan: starter
+    buildCommand: npm install && npm run build
+    preDeployCommand: npm run deploy-commands
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeploy: true
+    disk:
+      name: evomc-manager-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: DISCORD_TOKEN
+        sync: false
+      - key: CLIENT_ID
+        value: "1553068286487298090"
+      - key: PREFIX
+        value: "."
+      - key: MC_SERVER_HOST
+        value: play.evo-mc.fun
+      - key: MC_SERVER_PORT
+        value: "25565"
+      - key: DATABASE_PATH
+        value: /var/data/bot.db
